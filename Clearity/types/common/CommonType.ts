@@ -1,6 +1,8 @@
 export declare module CommonType {
     export type RootStackPageList = {
-        default: undefined;
+        login: undefined;
         home: undefined;
+        intro: undefined;
+        register: undefined;
     };
 }

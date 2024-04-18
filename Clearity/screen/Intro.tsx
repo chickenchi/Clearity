@@ -17,11 +17,9 @@ const Intro = ({navigation}: HomePageProps) => {
 
   useState(() => {
     setTimeout(() => {
-      navigation.navigate('default')
-    }, 1000)
-    
+      navigation.navigate('login')
+    }, 3000)
   })
-
 
   return (
     <SafeAreaView style={styles.BG}>

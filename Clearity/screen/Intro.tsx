@@ -23,8 +23,8 @@ const Intro = ({navigation}: HomePageProps) => {
 
   return (
     <SafeAreaView style={styles.BG}>
-      <Image source={require('../assets/images/BG.png')} style={styles.image} />
-      <Image source={require('../assets/images/Logo.png')} style={styles.logo} />
+      <Image source={require('assets/images/Background/BG.png')} style={styles.image} />
+      <Image source={require('assets/images/Logo/Logo.png')} style={styles.logo} />
     </SafeAreaView>
   );
 }

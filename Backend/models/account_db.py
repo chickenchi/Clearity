@@ -21,7 +21,8 @@ class AccountDB:
     def register_account(self, dto):
         try:
             sql = """
-                INSERT INTO Accounts (id, pw, email) VALUES('{0}', '{1}', '{2}')
+                INSERT INTO Accounts (id, pw, email) VALUES('{0}',
+                '{1}', '{2}')
             """.format(dto.id, dto.pw, dto.email)
 
             self.cur.execute(sql)

@@ -14,7 +14,7 @@ import {
 
 import TextLink from 'react-native-text-link';
 
-import Popup from '../Tools/Popup';
+import Notification from 'Tools/Notification';
 import axios from 'axios';
 
 interface RegisterPageProps {
@@ -106,9 +106,9 @@ const RegisterPage = ({navigation}: RegisterPageProps) => {
     
   return (
     <SafeAreaView style={styles.BG}>
-      <Popup request={request} type={type} />
+      <Notification request={request} type={type} />
 
-      <Image source={require('../../assets/images/Login.jpg')} style={styles.image} />
+      <Image source={require('assets/images/Background/Login.jpg')} style={styles.image} />
       <Text style={styles.Title}>회원 가입</Text>
 
       <TextInput

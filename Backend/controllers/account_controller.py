@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for, Blueprint
 from services.account_service import AccountService
 from dto.accountDTO import AccountDTO
 
-account_blueprint = Blueprint('todo', __name__)
+account_blueprint = Blueprint('account', __name__)
 account_service = AccountService()
 
 @account_blueprint.route('/login', methods=["POST"])

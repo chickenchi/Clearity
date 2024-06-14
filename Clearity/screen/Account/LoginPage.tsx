@@ -13,7 +13,7 @@ import {
 
 import TextLink from 'react-native-text-link';
 
-import Popup from '../Tools/Popup';
+import Notification from 'Tools/Notification';
 import axios from 'axios';
 
 interface RegisterPageProps {
@@ -82,47 +82,45 @@ const LoginPage = ({navigation}: RegisterPageProps) => {
   }
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Popup request={request} type={type} />
+    <SafeAreaView style={styles.BG}>
+      <Notification request={request} type={type} />
 
-      <View style={styles.BG}>
-        <Image source={require('../../assets/images/Login.jpg')} style={styles.image} />
-        
-        <Text style={styles.Title}>들어가기</Text>
+      <Image source={require('assets/images/Background/Login.jpg')} style={styles.image} />
+      
+      <Text style={styles.Title}>들어가기</Text>
 
-        <TextInput
-            style={styles.TextInput}
-            autoCapitalize="none"
-            placeholder="계정(ID) 혹은 전자 우편 주소"
-            onChangeText={setID}
-            value={id} />
-        <TextInput
-            style={styles.TextInput}
-            autoCapitalize="none"
-            secureTextEntry
-            placeholder="비밀번호"
-            onChangeText={setPW}
-            value={pw} />
+      <TextInput
+          style={styles.TextInput}
+          autoCapitalize="none"
+          placeholder="계정(ID) 혹은 전자 우편 주소"
+          onChangeText={setID}
+          value={id} />
+      <TextInput
+          style={styles.TextInput}
+          autoCapitalize="none"
+          secureTextEntry
+          placeholder="비밀번호"
+          onChangeText={setPW}
+          value={pw} />
 
-        <View style={styles.BtnContainer}>
-          <Button color='#399DF9'
-                  title="들어가기"
-                  onPress={checkInput} />
-        </View>
+      <View style={styles.BtnContainer}>
+        <Button color='#399DF9'
+                title="들어가기"
+                onPress={checkInput} />
+      </View>
 
-        <View style={styles.registerView}>
-          <Text style={styles.notice}>아직 가입하지 않았나요?</Text>
-          <TextLink links={[
-                          {
-                            text: '회원 가입',
-                            onPress: () => navigation.navigate('register'),
-                          },
-                        ]}
-                    textStyle={styles.register}
-                    textLinkStyle={styles.register}>
-                        회원 가입
-          </TextLink>
-        </View>
+      <View style={styles.registerView}>
+        <Text style={styles.notice}>아직 가입하지 않았나요?</Text>
+        <TextLink links={[
+                        {
+                          text: '회원 가입',
+                          onPress: () => navigation.navigate('register'),
+                        },
+                      ]}
+                  textStyle={styles.register}
+                  textLinkStyle={styles.register}>
+                      회원 가입
+        </TextLink>
       </View>
     </SafeAreaView>
   );

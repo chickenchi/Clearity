@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
@@ -9,9 +10,14 @@ import {
   Dimensions,
 } from 'react-native';
 
-const Popup = (props: any) => {
+export type RootStackParam = {
+    login: undefined;
+};
 
-    const navigation = useNavigation();
+const Notification = (props: any) => {
+
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParam>>();
+
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
     let response;
@@ -20,8 +26,8 @@ const Popup = (props: any) => {
         setIsModalVisible(false);
     }
 
-    const moveToBack = () => {
-        navigation.goBack()
+    const moveToLogin = () => {
+        navigation.navigate("login")
     }
 
     useEffect(() => {
@@ -34,25 +40,24 @@ const Popup = (props: any) => {
         if(props.type == "error")
             return <Pressable onPress={onPressModalClose}><Text>확인</Text></Pressable>
         else if(props.type == "CreatedAccount")
-            return <Pressable onPress={moveToBack}><Text>확인</Text></Pressable>
+            return <Pressable onPress={moveToLogin}><Text>확인</Text></Pressable>
     }
 
     return (
         <View style={{marginBottom: 1}}>
             <Modal
-                style={{}}
                 animationType="slide"
                 visible={isModalVisible}
                 transparent={true}
             >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <View>
-                        <Text style={styles.modalTextStyle}>{props.request.split(';')[0]}</Text>
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <View>
+                            <Text style={styles.modalTextStyle}>{props.request.split(';')[0]}</Text>
+                        </View>
+                        {Type()}
                     </View>
-                    {Type()}
                 </View>
-            </View>
             </Modal>
         </View>
     )
@@ -96,4 +101,4 @@ const styles = StyleSheet.create({
   },
   });
 
-export default Popup;
+export default Notification;

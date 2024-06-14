@@ -2,14 +2,14 @@ from models.account_db import AccountDB
 
 class AccountService:
     def __init__(self):
-        self.todo_db = AccountDB()
+        self.account_db = AccountDB()
 
     def find_account(self, dto):
         if self.check_sql_injection(dto):
             print("SQL Injection 인식")
             return
         
-        if self.todo_db.find_account(dto):
+        if self.account_db.find_account(dto):
             return "Success"
         else:
             return "No Account"
@@ -19,7 +19,7 @@ class AccountService:
             print("SQL Injection 인식")
             return
         
-        check = self.todo_db.register_account(dto)
+        check = self.account_db.register_account(dto)
 
         print(check)
         

@@ -1,6 +1,6 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Pressable } from 'react-native';
+import { Dimensions, Pressable, TouchableOpacity } from 'react-native';
 import { Modal } from 'react-native';
 import {
   SafeAreaView,
@@ -108,8 +108,7 @@ const RegisterPage = ({navigation}: RegisterPageProps) => {
     <SafeAreaView style={styles.BG}>
       <Notification request={request} type={type} />
 
-      <Image source={require('assets/images/Background/Login.jpg')} style={styles.image} />
-      <Text style={styles.Title}>회원 가입</Text>
+      <Image source={require('assets/images/Logo/Logo.png')} style={styles.logo} />
 
       <TextInput
           style={styles.TextInput} 
@@ -135,11 +134,10 @@ const RegisterPage = ({navigation}: RegisterPageProps) => {
           placeholder="비밀번호 확인"
           onChangeText={setPWCheck}
           value={pwCheck} />
-      <View style={styles.BtnContainer}>
-      <Button color='#399DF9'
-              title="회원 가입"
-              onPress={checkInput} />
-      </View>
+
+      <TouchableOpacity style={styles.Btn} onPress={checkInput}>
+          <Text style={styles.BtnText}>들어가기</Text>
+      </TouchableOpacity>
 
       <View style={styles.registerView}>
         <Text style={styles.notice}>이미 가입하셨나요?</Text>
@@ -160,7 +158,7 @@ const RegisterPage = ({navigation}: RegisterPageProps) => {
 
 const styles = StyleSheet.create({
   BG: {
-    backgroundColor: 'black',
+    backgroundColor: 'white',
 
     alignItems: 'center',
     justifyContent: 'center',
@@ -169,34 +167,45 @@ const styles = StyleSheet.create({
     height: '100%'
   },
 
-  Title: {
-    position: 'relative',
-
-    fontSize: 45,
-    color: 'white',
-
-    marginBottom: 20,
-    fontFamily: 'NotoSansKR-Medium'
+  logo: {
+    width: 150,
+    height: 61,
+    marginBottom: 45,
   },
 
-  BtnContainer: {
-    width: '45%',
+  Btn: {
+    width: '55%',
+    height: 48,
+    backgroundColor: '#399DF9',
 
-    marginTop: 20,
-    borderRadius: 10
+    marginTop: 30,
+    borderRadius: 10,
+
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  BtnText: {
+    color: 'white',
+    fontSize: 17,
+
+    fontFamily: 'Cafe24Oneprettynight',
   },
 
   TextInput: {
-    backgroundColor: 'white',
-    width: '70%',
+    backgroundColor: '#F2F2F2',
+    width: '80%',
+    height: 58,
 
-    fontSize: 14,
+    fontSize: 16,
 
     paddingLeft: 15,
-    marginTop: 7,
-    marginBottom: 7,
-    borderRadius: 8,
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 6,
 
+    fontFamily: 'Cafe24Oneprettynight',
   },
 
   image: {
@@ -214,19 +223,22 @@ const styles = StyleSheet.create({
   },
   
   notice: {
-    marginRight: 15,
-
-    fontSize: 15,
+    marginRight: 16,
+    
+    fontSize: 16,
     color: '#A4A4A4',
-    fontFamily: 'NotoSansKR-Light',
 
+    marginTop: 12,
+    fontFamily: 'Cafe24Oneprettynight',
   },
   
   register: {
-    fontSize: 15,
-    color: 'white',
+    fontSize: 16,
+    color: 'black',
     textDecorationLine: 'underline',
-    fontFamily: 'NotoSansKR-Light'
+    
+    marginTop: 12,
+    fontFamily: 'Cafe24Oneprettynight',
   },
 
   

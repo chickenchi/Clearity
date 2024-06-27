@@ -17,6 +17,8 @@ import Tab from './Tab/Tab';
 import Logo from './Logo/Logo';
 import Hr from 'Tools/Hr';
 
+import MainHeader from './MainHeader';
+
 interface ProfilePageProps {
   navigation: NativeStackNavigationProp<any, 'default'>;
 }
@@ -26,7 +28,9 @@ const Profile = ({navigation}: ProfilePageProps) => {
   {/* viewBox=Circle*2 */}
   return (
     <SafeAreaView style={styles.BG}>
-      <Logo style={styles.logo} />
+      <View style={styles.MainHeader}>
+        <MainHeader />
+      </View>
 
       <View style={styles.profile}>
         <SVG style={styles.profilePic} width="130" height="130" viewBox="0 0 46 46" fill="none">
@@ -89,11 +93,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 
+  MainHeader: {
+    alignItems: 'flex-start',
+    width: '100%',
+  },
+
   profile: {
     width: '100%',
     height: '18%',
     //backgroundColor: '#FCF0F0',
-    marginTop: 80,
+    marginTop: 130,
     flexDirection: 'row',
     alignItems: 'center',
   },

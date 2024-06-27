@@ -49,6 +49,7 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Cafe24Oneprettynight.ttf</string>
 		<string>NotoSansKR-Black.ttf</string>
 		<string>NotoSansKR-Bold.ttf</string>
 		<string>NotoSansKR-ExtraBold.ttf</string>

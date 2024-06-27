@@ -6,8 +6,6 @@ import {
   Text,
   View,
   Modal,
-  Pressable,
-  Dimensions,
 } from 'react-native';
 
 export type RootStackParam = {

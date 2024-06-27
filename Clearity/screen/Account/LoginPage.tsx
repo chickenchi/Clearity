@@ -9,6 +9,7 @@ import {
   TextInput,
   View,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 
 import TextLink from 'react-native-text-link';
@@ -85,9 +86,7 @@ const LoginPage = ({navigation}: RegisterPageProps) => {
     <SafeAreaView style={styles.BG}>
       <Notification request={request} type={type} />
 
-      <Image source={require('assets/images/Background/Login.jpg')} style={styles.image} />
-      
-      <Text style={styles.Title}>들어가기</Text>
+      <Image source={require('assets/images/Logo/Logo.png')} style={styles.logo} />
 
       <TextInput
           style={styles.TextInput}
@@ -103,11 +102,9 @@ const LoginPage = ({navigation}: RegisterPageProps) => {
           onChangeText={setPW}
           value={pw} />
 
-      <View style={styles.BtnContainer}>
-        <Button color='#399DF9'
-                title="들어가기"
-                onPress={checkInput} />
-      </View>
+      <TouchableOpacity style={styles.Btn} onPress={checkInput}>
+          <Text style={styles.BtnText}>들어가기</Text>
+      </TouchableOpacity>
 
       <View style={styles.registerView}>
         <Text style={styles.notice}>아직 가입하지 않았나요?</Text>
@@ -128,41 +125,52 @@ const LoginPage = ({navigation}: RegisterPageProps) => {
 
 const styles = StyleSheet.create({
   BG: {
-    backgroundColor: 'black',
+    backgroundColor: 'white',
 
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
   },
 
-  Title: {
-    position: 'relative',
-
-    fontSize: 45,
-    color: 'white',
-
-    marginBottom: 20,
-    fontFamily: 'NotoSansKR-Medium',
+  logo: {
+    width: 150,
+    height: 61,
+    marginBottom: 45,
   },
 
-  BtnContainer: {
-    width: '45%',
+  Btn: {
+    width: '55%',
+    height: 55,
+    backgroundColor: '#399DF9',
 
-    marginTop: 20,
+    marginTop: 30,
     borderRadius: 10,
+
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  BtnText: {
+    color: 'white',
+    fontSize: 17,
+
+    fontFamily: 'Cafe24Oneprettynight',
   },
 
   TextInput: {
-    backgroundColor: 'white',
-    width: '70%',
-    height: 52,
+    backgroundColor: '#F2F2F2',
+    width: '80%',
+    height: 65,
 
-    fontSize: 14,
+    fontSize: 16,
 
     paddingLeft: 15,
-    marginTop: 7,
-    marginBottom: 7,
-    borderRadius: 8,
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 6,
+
+    fontFamily: 'Cafe24Oneprettynight',
   },
 
   image: {
@@ -180,19 +188,22 @@ const styles = StyleSheet.create({
   },
   
   notice: {
-    marginRight: 15,
-
-    fontSize: 15,
+    marginRight: 16,
+    
+    fontSize: 16,
     color: '#A4A4A4',
-    fontFamily: 'NotoSansKR-Light',
 
+    marginTop: 12,
+    fontFamily: 'Cafe24Oneprettynight',
   },
   
   register: {
-    fontSize: 15,
-    color: 'white',
+    fontSize: 16,
+    color: 'black',
     textDecorationLine: 'underline',
-    fontFamily: 'NotoSansKR-Light',
+    
+    marginTop: 12,
+    fontFamily: 'Cafe24Oneprettynight',
   },
 
   modalBackground: {

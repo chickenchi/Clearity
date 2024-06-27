@@ -11,6 +11,7 @@ import {
 
 import Tab from './Tab/Tab';
 import StartPopup from 'Tools/StartPopup';
+import StartSelectPopup from 'Tools/StartSelectPopup';
 
 interface HomePageProps {
   navigation: NativeStackNavigationProp<any, 'default'>;
@@ -24,23 +25,27 @@ const Home = ({navigation}: HomePageProps) => {
     
   } */
 
-  function Crossword() {
+  const Crossword = () => {
     navigation.navigate("crossword")
+  }
+
+  const Test = () => {
+    navigation.navigate("login")
   }
 
   return (
     <SafeAreaView style={styles.BG}>
       <StartPopup />
+      {/* <StartSelectPopup /> */}
 
       <View style={styles.titleView}>
         <Image source={require('assets/images/Logo/Logo.png')} style={styles.logo} />
-        <Text style={styles.title}>평명</Text>
       </View>
 
       <TouchableOpacity style={[styles.button, styles.startBtn]} onPress={Crossword}>
         <Text style={[styles.buttonText, styles.startBtnText]}>시작하기</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.button, styles.battleBtn]}>
+      <TouchableOpacity style={[styles.button, styles.battleBtn]} onPress={Test}>
         <Text style={[styles.buttonText, styles.battleBtnText]}>대전하기</Text>
       </TouchableOpacity>
       
@@ -66,8 +71,9 @@ const styles = StyleSheet.create({
     marginBottom: 90,
   },
   logo: {
-    width: 80,
-    height: 58,
+    width: 150,
+    height: 61,
+    marginBottom: 25,
   },
   title: {
     marginLeft: 15,
@@ -79,14 +85,12 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   button: {
-    width: '75%',
-    height: '6.8%',
-
-    color: 'white',
+    width: '85%',
+    height: '7.2%',
     
     borderColor: 'black',
     borderWidth: 2,
-    borderRadius: 22,
+    borderRadius: 12,
 
     marginBottom: 20,
     
@@ -98,14 +102,18 @@ const styles = StyleSheet.create({
     borderColor: '#E04E92'
   },
   startBtnText: {
-    color: '#E04E92'
+    color: '#E04E92',
+    fontSize: 27,
+    fontFamily: 'Cafe24Oneprettynight',
   },
 
   battleBtn: {
     borderColor: '#C1C1C1'
   },
   battleBtnText: {
-    color: '#C1C1C1'
+    color: '#C1C1C1',
+    fontSize: 27,
+    fontFamily: 'Cafe24Oneprettynight',
   },
 
   buttonText: {

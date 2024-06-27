@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import React, { useState, useEffect } from 'react'
 import {
   StyleSheet,
   Text,
@@ -8,22 +8,22 @@ import {
   Modal,
   Pressable,
   Dimensions,
-} from 'react-native';
+} from 'react-native'
 
 export type RootStackParam = {
-    login: undefined;
-};
+    login: undefined
+}
 
 const Notification = (props: any) => {
 
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParam>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParam>>()
 
-    const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+    const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 
-    let response;
+    let response: any
 
     const onPressModalClose = () => {
-        setIsModalVisible(false);
+        setIsModalVisible(false)
     }
 
     const moveToLogin = () => {
@@ -31,8 +31,9 @@ const Notification = (props: any) => {
     }
 
     useEffect(() => {
-        response = props.request.split(';')[0];
-        if(response == "") return
+        console.log(response)
+        response = props.request.split('')[0]
+        if(response === undefined) return
         setIsModalVisible(true)
     }, [props.request])
 
@@ -64,7 +65,6 @@ const Notification = (props: any) => {
 }
 
 const styles = StyleSheet.create({
-  
     modalBackground: {
       position: 'absolute',
     },
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
       marginTop: Dimensions.get('screen').height / 2.5,
       margin: 30,
       backgroundColor: 'white',
-      borderRadius: 20,
+      borderRadius: 10,
       padding: 35,
       alignItems: 'center',
       shadowColor: '#000',
@@ -84,21 +84,26 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.25,
       shadowRadius: 4,
       elevation: 5,
-  },
+    },
   
     modalTextStyle: {
       color: '#17191c',
-      fontWeight: 'bold',
+      fontFamily: 'Cafe24Oneprettynight',
+      fontSize: 17,
       textAlign: 'center',
-      marginBottom: 50
+      marginBottom: 50,
+    },
+
+    OKText: {
+        fontFamily: 'Cafe24Oneprettynight',
     },
   
     centeredView: {
-      flex: 1,
-      alignContent: "center",
-      textAlignVertical: 'center',
-      backgroundColor: "rgba(0, 0, 0, 0.8)",
-  },
-  });
+        flex: 1,
+        alignContent: "center",
+        textAlignVertical: 'center',
+        backgroundColor: "rgba(0, 0, 0, 0.8)",
+    },
+  })
 
-export default Notification;
+export default Notification

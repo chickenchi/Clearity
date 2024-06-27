@@ -11,7 +11,9 @@ import {
 
 import Tab from './Tab/Tab';
 
-import Logo from './Logo/Logo'
+import Logo from './Logo/Logo';
+import MainHeader from './MainHeader';
+import Under_construction from 'Tools/under_construction';
 
 interface SettingPageProps {
   navigation: NativeStackNavigationProp<any, 'default'>;
@@ -21,7 +23,11 @@ const Setting = ({navigation}: SettingPageProps) => {
 
   return (
     <SafeAreaView style={styles.BG}>
-      <Logo style={styles.logo} />
+      <View style={styles.MainHeader}>
+        <MainHeader />
+      </View>
+      
+      <Under_construction />
       
       <View style={styles.tab}>
         <Tab colDir="setting" />
@@ -36,6 +42,10 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
     flex: 1,
+  },
+  MainHeader: {
+    alignItems: 'flex-start',
+    width: '100%',
   },
   logo: {
     position: 'absolute',

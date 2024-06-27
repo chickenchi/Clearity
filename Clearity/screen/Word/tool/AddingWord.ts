@@ -1,18 +1,14 @@
 import { Multiset } from "algorithm/Multiset";
-import { SearchWord, InsertWord } from "./SearchingWord";
 
-let wordList: any[] = [];
-let wordDescription: any[] = [];
+import axios from "axios";
+import { decode } from 'html-entities';
 
-export const SettingWord = () => {
-    if(wordList.length) return;
-
-    wordList = InsertWord(wordList);
-    console.log(wordList)
-    // wordDescription = InsertWord(wordList); // [제목; 내용]
+function sleep(ms: number) {
+    const wakeUpTime = Date.now() + ms;
+    while (Date.now() < wakeUpTime) {}
 }
 
-export const AddWord = (marking: any, index: number, crossword: string[][], maxLen: number, wordCount: number, distinct: Multiset<number[]>, visited: number[], direction: Array<[number, number, number, string]>, cwDescription: string[][]) => {
+export const AddWord = async (marking: any, index: number, crossword: string[][], maxLen: number, wordCount: number, distinct: Multiset<number[]>, visited: number[], direction: Array<[number, number, number, string]>, cwDescription: string[][]) => {
     let col: number = marking[0], row: number = marking[1], length: number = marking[2];
     let dir: string = marking[3];
 
@@ -61,13 +57,10 @@ export const AddWord = (marking: any, index: number, crossword: string[][], maxL
     
     let free = true;
     
-    let letter: string[] = Array(maxLen).fill("");
-    letter.length = maxLen;
+    let letter: string = "";
 
-    let wordSize = wordList[length].length;
-    let random = Math.floor(Math.random() * wordSize);
-    let word = wordList[length][random];
-    let description = wordDescription[length][random];
+    let word: string = "";
+    let description: string = "";
 
     let s = 0;
     
@@ -77,15 +70,25 @@ export const AddWord = (marking: any, index: number, crossword: string[][], maxL
             if(crossword[i][j])
             {
                 free = false;
-                letter[s] = crossword[i][j];
+                letter += crossword[i][j];
                 s += 1;
             }
+            else
+                letter += "_"
         }
 
-    if(!free)
-        word = SearchWord(letter, colRange, rowRange, length, wordList); 
+    let requestSet: string[] = await SearchWord(letter, colRange, rowRange, length, letter)
+
+    word = requestSet[0]
+
+    if(word === "no word" || word === "X")
+        return word
+
+    description = requestSet[1]
 
     AssigningLetter(colRange, rowRange, word, crossword, description, cwDescription)
+
+    return "0"
 }
 
 const AssigningLetter = (colRange: number[], rowRange: number[], word: string, crossword: string[][], description: string, cwDescription: string[][]) => {
@@ -94,8 +97,63 @@ const AssigningLetter = (colRange: number[], rowRange: number[], word: string, c
     for(let i=colRange[0]; i<=colRange[1]; i++)
         for(let j=rowRange[0]; j<=rowRange[1]; j++)
         {
+            if(cwDescription[i][j])
+            {
+                if(cwDescription[i][j].includes(description)) continue;
+                cwDescription[i][j] = cwDescription[i][j] + " / " + description;
+            }
+            else
+                cwDescription[i][j] = description;
+
             crossword[i][j] = word[s];
-            cwDescription[i][j] = description;
+
             s += 1;
         }
 }
+
+export const SearchWord = async (letter: any, colRange: any, rowRange: any, length: number, wordStructure: string) => {
+    sleep(2000);
+
+    let word: string = "";
+    let description: string = "";
+
+    let requestSet: string[] = ["", ""];
+
+    try {
+        const url = 'http://10.0.2.2:5000/find_word';
+
+        const options = {
+            "regExp": wordStructure,
+        };
+
+        const response = await axios.post(url, options);
+        word = response.data;
+
+        console.log(word)
+
+        if(word === "no word" || word === "X")
+        {
+            requestSet = [word, ""];
+            return requestSet
+        }
+
+    } catch(e) {
+        return requestSet
+    }
+
+    try {
+        const key = '987D5400AEA9E504997A29E80F99C1BA';
+        const url = `https://opendict.korean.go.kr/api/search?key=${key}&q=${word}`
+
+        const response = await axios.get(url);
+        console.log(decode(response.data.split("<definition>")[1].split("</definition >")[0]));
+        description = response.data.split("<pos>")[1].split("</pos>")[0] + "; " + decode(response.data.split("<definition>")[1].split("</definition >")[0]);
+
+    } catch(e) {
+        return requestSet
+    }
+
+    requestSet = [word, description];
+
+    return requestSet;
+};

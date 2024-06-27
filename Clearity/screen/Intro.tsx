@@ -23,7 +23,6 @@ const Intro = ({navigation}: HomePageProps) => {
 
   return (
     <SafeAreaView style={styles.BG}>
-      <Image source={require('assets/images/Background/BG.png')} style={styles.image} />
       <Image source={require('assets/images/Logo/Logo.png')} style={styles.logo} />
     </SafeAreaView>
   );
@@ -31,16 +30,18 @@ const Intro = ({navigation}: HomePageProps) => {
 
 const styles = StyleSheet.create({
   BG: {
-    backgroundColor: 'black',
+    backgroundColor: 'white',
+    display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flex: 1,
   },
   logo: {
-    position: 'absolute',
-    width: 110,
+    width: 200,
     height: 82
   },
   image: {
+    display: 'flex',
     width: '100%',
     height: '100%'
   },

@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AddWord, SettingWord } from 'Word/tool/AddingWord';
+import { AddWord } from 'Word/tool/AddingWord';
 import { CheckNInsert } from 'Word/tool/CheckNInsert';
 import { FillLack } from 'Word/tool/FillLack';
 import React, { useEffect, useState } from 'react';
@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { Multiset } from 'algorithm/Multiset';
+import Hr from 'Tools/Hr';
 
 interface CrosswordPageProps {
   navigation: NativeStackNavigationProp<any, 'default'>;
@@ -29,97 +30,188 @@ let crossword: string[][] = Array.from({ length: maxLen }, () => Array(maxLen).f
 let cwDescription: string[][] = Array.from({ length: maxLen }, () => Array(maxLen).fill(""));
 let cw: any[][] = Array.from({ length: maxLen }, () => Array(maxLen).fill(""));
 
+let wait: boolean = true;
+
 const Crossword = ({navigation}: CrosswordPageProps) => {
-
   const [reset, resetter] = useState(0);
-  const [desc, ChangeDesc] = useState<string>("");
-  const [titleDesc, ChangeTitleDesc] = useState<string>("");
+  const [description, SetDescription] = useState<any>();
 
-  const Resetting = () => {
-    space = Array.from({ length: maxLen }, () => Array(maxLen).fill(0));
-    
-    crossword = Array.from({ length: maxLen }, () => Array(maxLen).fill(""));
-    cwDescription = Array.from({ length: maxLen }, () => Array(maxLen).fill(""));
-    cw = Array.from({ length: maxLen }, () => Array(maxLen).fill(""));
-    
-    let visited = new Array(wordCount);
-    let cnt: number = 0;
-    
-    let direction: Array<[number, number, number, string]> = []; // col, row, length
-    
-    const distinct: Multiset<number[]> = new Multiset<number[]>();
+  const Resetting = async () => {
 
-    SettingWord();
+    let errorStatue: string = "0";
 
-    return;
+    wait = true;
+    resetter(-1);
 
-    while(cnt < wordCount)
+    do
     {
-      if(CheckNInsert(distinct, direction, space, cnt, maxLen)) cnt += 1
-    }
+      errorStatue = "0";
 
-    for(var i=0; i<wordCount; i++) FillLack(direction[i], i, space, direction, distinct, maxLen);
+      space = Array.from({ length: maxLen }, () => Array(maxLen).fill(0));
+      
+      crossword = Array.from({ length: maxLen }, () => Array(maxLen).fill(""));
+      cwDescription = Array.from({ length: maxLen }, () => Array(maxLen).fill(""));
+      cw = Array.from({ length: maxLen }, () => Array(maxLen).fill(""));
+      
+      let visited = new Array(wordCount);
+      let cnt: number = 0;
+      
+      let direction: Array<[number, number, number, string]> = []; // col, row, length
+      
+      const distinct: Multiset<number[]> = new Multiset<number[]>();
 
-    for(var i=0; i<wordCount; i++) AddWord(direction[i], i, crossword, maxLen, wordCount, distinct, visited, direction, cwDescription);
+      while(cnt < wordCount)
+      {
+        if(CheckNInsert(distinct, direction, space, cnt, maxLen)) cnt += 1
+      }
 
-    for(let i=0; i<maxLen; i++)
-      for(let j=0; j<maxLen; j++)
-        if(space[i][j] != 0)
-          cw[i][j] = <TextInput onFocus={() => ChangeDescription(i, j)} maxLength={1} id={crossword[i][j]} style={styles.inputWord}></TextInput>
+      for(var i=0; i<wordCount; i++) FillLack(direction[i], i, space, direction, distinct, maxLen);
 
-    resetter(reset + 1);
+      for(var i=0; i<wordCount; i++)
+      {
+        errorStatue = await AddWord(direction[i], i, crossword, maxLen, wordCount, distinct, visited, direction, cwDescription);
+      
+        if(errorStatue !== "0")
+        {
+          if(errorStatue === "X")
+          {
+            console.log("끔찍한 오류")
+            navigation.navigate("home")
+          }
+          console.log("오류 남: " + errorStatue)
+          break
+        }
+      }
+
+      if(errorStatue !== "0")
+        continue;
+
+      for(let i=0; i<maxLen; i++)
+        for(let j=0; j<maxLen; j++)
+          if(space[i][j] != 0)
+            cw[i][j] = <TextInput onFocus={() => ChangeDescription(i, j)} maxLength={1} id={crossword[i][j]} style={styles.inputWord}></TextInput>
+    } while(errorStatue !== "0");
+
+    wait = false;
+    resetter(-2);
+
+    console.log("End Line")
   }
 
   useEffect(() => {
-      if(reset == 0) Resetting()
+    if(reset == 0) Resetting()
   })
 
   const BacktoHome = () => {
-      navigation.navigate("home");
+    wait = true;
+    navigation.navigate("home");
   }
 
   const ChangeDescription = (i: any, j: any) => {
-    let descSet: string[] = cwDescription[i][j].split("; ");
-    let title: string = descSet[0];
-    let description: string = descSet[1];
+    if(cwDescription[i][j].includes("/"))
+    {
+      let descSet: string[] = cwDescription[i][j].split(" / ")[0].split("; ")
 
-    ChangeTitleDesc("<" + title + ">")
-    ChangeDesc(description)
+      let title: string = descSet[0];
+      let desc: string = descSet[1];
+
+      let descSet2: string[] = cwDescription[i][j].split(" / ")[1].split("; ")
+
+      let title2: string = descSet2[0];
+      let desc2: string = descSet2[1];
+
+      SetDescription
+      (
+      <View>
+        <Text style={styles.dTitle}>{title}</Text>
+        <Text style={styles.dDescription}>{desc}</Text>
+        <Text style={styles.dTitle}>{title2}</Text>
+        <Text style={styles.dDescription}>{desc2}</Text>
+      </View>
+      )
+    }
+    else
+    {
+      let descSet: string[] = cwDescription[i][j].split("; ")
+
+      let title: string = descSet[0];
+      let desc: string = descSet[1];
+
+      SetDescription
+      (
+      <View>
+        <Text style={styles.dTitle}>{title}</Text>
+        <Text style={styles.dDescription}>{desc}</Text>
+      </View>
+      )
+    }
   }
 
   const Reshake = () => {
-    resetter(0)
+    if(!wait)
+    {
+      wait = true;
+      resetter(0)
+    }
   }
 
   return (
-      <SafeAreaView style={styles.BG}>
-          <View style={styles.tbContainer}>
-              <Table borderStyle={{borderWidth: 2, borderColor: '#999999'}}>
-                  <Rows data={cw} textStyle={styles.tbText} />
-              </Table>
-          </View>
-          <View style={styles.touchableContainer}>
-              <TouchableOpacity style={styles.backBtn} onPress={BacktoHome}>
-                  <Text style={styles.backBtnTxt}>나가기</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.backBtn} onPress={Reshake}>
-                  <Text style={styles.backBtnTxt}>다시 섞기</Text>
-              </TouchableOpacity>
-          </View>
-          <View style={styles.description}>
-            <Text style={styles.dTitle}>{titleDesc}</Text>
-            <Text style={styles.dDescription}>{desc}</Text>
-          </View>
-      </SafeAreaView>
+    <SafeAreaView style={styles.BG}>
+      <View style={styles.tbContainer}>
+        <Table borderStyle={{borderWidth: 2, borderColor: '#999999'}}>
+          <Rows data={cw} textStyle={styles.tbText} />
+        </Table>
+      </View>
+      <View style={styles.touchableContainer}>
+        <TouchableOpacity style={styles.backBtn} onPress={BacktoHome}>
+          <Text style={styles.backBtnTxt}>나가기</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.backBtn} onPress={Reshake}>
+          <Text style={styles.backBtnTxt}>다시 섞기</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.description}>
+        {description}
+      </View>
+      <View style={[styles.waitView, wait ? styles.showWaitView : styles.hideWaitView]}>
+        <Text style={styles.waitText}>생성 중...</Text>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   BG: {
+    position: 'relative',
     backgroundColor: '#ffffff',
 
     alignItems: 'center',
     flex: 1,
+  },
+
+  waitView: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  showWaitView: {
+    display: 'flex',
+  },
+
+  hideWaitView: {
+    display: 'none',
+  },
+
+  waitText: {
+    fontFamily: 'Inter',
+    fontSize: 40,
+    color: 'white'
   },
 
   tbContainer: {
@@ -171,7 +263,6 @@ const styles = StyleSheet.create({
   },
 
   description: {
-    position: 'absolute',
     width: '90%',
     height: '40%',
   },

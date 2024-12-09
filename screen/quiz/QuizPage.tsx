@@ -1,24 +1,7 @@
-import { useEffect } from 'react';
+import React, {useEffect} from 'react';
 
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-} from 'react-native';
-import QuizHeader from './Header/QuizHeader';
-import Quiz from './Section/Quiz';
-import Paused from './Section/Paused';
-import QuizList from './Navigation/QuizList';
-import Result from './Section/Result';
-import QuizFooter from './Footer/QuizFooter';
-import ResultFooter from './Footer/ResultFooter';
-import Explanation from './Section/Explanation';
-import Hr from '../Items/Hr';
-import { useFonts } from 'expo-font';
-import { FormatTime } from '../Tools/FormatTime';
-import { useRecoilState } from 'recoil';
+import {SafeAreaView, StyleSheet, View, Text, ScrollView} from 'react-native';
+import {useRecoilState} from 'recoil';
 import {
   checkedQuestionState,
   playingState,
@@ -26,7 +9,17 @@ import {
   showedResultState,
   showListState,
   timeState,
-} from '../../Atoms/Quiz/QuizAtom';
+} from '../atoms/quiz/QuizAtom';
+import Hr from '../components/ui/Hr';
+import {formatTime} from '../utils/FormatTime';
+import QuizHeader from './header/QuizHeader';
+import Quiz from './sections/quiz/Quiz';
+import Commentary from './sections/feedback/commentary/Commentary';
+import ResultFooter from './footer/result/ResultFooter';
+import Feedback from './sections/feedback/feedback/Feedback';
+import QuizFooter from './footer/quiz/QuizFooter';
+import QuizList from './navigation/QuizList';
+import Pause from './sections/pause/Pause';
 
 export interface ResultType {
   Correct: string;
@@ -37,29 +30,18 @@ export interface ResultType {
   NextQuestion: () => void;
 }
 
-const fontUrl =
-  'https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunBatang-Regular.woff';
-const fontUrl2 =
-  'https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunBatang-Bold.woff';
-
 export const QuizPage = () => {
-  const [loaded] = useFonts({
-    GowunBatang: { uri: fontUrl },
-    GowunBatangBold: { uri: fontUrl2 },
-  });
-
   const [isPlaying] = useRecoilState(playingState);
   const [time, setTime] = useRecoilState(timeState);
   const [isListVisible] = useRecoilState(showListState);
-  
-  const [checkQuestion] =
-    useRecoilState(checkedQuestionState);
+
+  const [checkQuestion] = useRecoilState(checkedQuestionState);
 
   useEffect(() => {
-    let interval: number = 0;
+    let interval: any;
     if (isPlaying) {
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
+        setTime(prevTime => prevTime + 1);
       }, 1000);
     } else if (!isPlaying && time !== 0) {
       clearInterval(interval);
@@ -68,9 +50,7 @@ export const QuizPage = () => {
   }, [isPlaying]);
 
   const [showedResult] = useRecoilState(showedResultState);
-  const [showedExplanation] = useRecoilState(
-    showedExplanationState
-  );
+  const [showedExplanation] = useRecoilState(showedExplanationState);
 
   return (
     <SafeAreaView style={styles.BG}>
@@ -95,12 +75,12 @@ export const QuizPage = () => {
                   <Hr />
                   <View style={styles.exEx}>
                     <ScrollView nestedScrollEnabled={true}>
-                      <Explanation />
+                      <Feedback />
                     </ScrollView>
                   </View>
                 </View>
               ) : (
-                <Result />
+                <Commentary />
               )}
             </ScrollView>
             <View style={styles.resultFooter}>
@@ -117,7 +97,7 @@ export const QuizPage = () => {
             </View>
           </>
         ) : (
-          <Paused time={FormatTime(time)} />
+          <Pause time={formatTime(time)} />
         )}
       </View>
       {isListVisible && (

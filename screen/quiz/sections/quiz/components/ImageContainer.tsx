@@ -1,4 +1,4 @@
-import { Question } from '../../../../Quiz/Data/questionList';
+import {Question} from '../../../../quiz/Data/questionList';
 import {
   ScrollView,
   View,
@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { Exit } from '../../../../Quiz/svgs/QuizSvg';
+import {Exit} from '@assets/svgs/QuizSvg';
 import Slider from '@react-native-community/slider';
 
 interface ImageContainer {
@@ -24,7 +24,7 @@ const ImageContainer: React.FC<ImageContainer> = ({
   currentOpacity,
   setSubscreen,
   currentQuestion,
-  subscreen
+  subscreen,
 }) => {
   return (
     <View
@@ -37,7 +37,7 @@ const ImageContainer: React.FC<ImageContainer> = ({
       ]}>
       <View style={styles.exitImageContainer}>
         <TouchableOpacity
-          style={[styles.exitImage, { opacity: currentOpacity / 100 }]}
+          style={[styles.exitImage, {opacity: currentOpacity / 100}]}
           onPress={() => setSubscreen('none')}>
           <Exit />
         </TouchableOpacity>
@@ -46,7 +46,7 @@ const ImageContainer: React.FC<ImageContainer> = ({
         {currentQuestion.Image !== 'none' && (
           <Image
             source={currentQuestion.Image}
-            style={[styles.img, { opacity: currentOpacity / 100 }]}
+            style={[styles.img, {opacity: currentOpacity / 100}]}
           />
         )}
         {currentQuestion.Description && (
@@ -64,7 +64,7 @@ const ImageContainer: React.FC<ImageContainer> = ({
       </ScrollView>
       <View style={styles.OpacityContainer}>
         <Slider
-          style={[styles.slider, { opacity: currentOpacity / 100 }]}
+          style={[styles.slider, {opacity: currentOpacity / 100}]}
           minimumValue={20}
           maximumValue={80}
           value={80}

@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import {useRecoilState} from 'recoil';
 import React from 'react';
 import {
   Text,
@@ -7,12 +7,19 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { checkedQuestionState, resultState, showedExplanationState } from '../../../Atoms/Quiz/QuizAtom';
+import {
+  checkedQuestionState,
+  resultState,
+  showedExplanationState,
+} from '@atoms/quiz/QuizAtom';
 
 const ResultFooter = () => {
   const [result] = useRecoilState(resultState);
-  const [checkQuestion, setCheckQuestion] = useRecoilState(checkedQuestionState);
-  const [showedExplanation, showingExplanation] = useRecoilState(showedExplanationState);
+  const [checkQuestion, setCheckQuestion] =
+    useRecoilState(checkedQuestionState);
+  const [showedExplanation, showingExplanation] = useRecoilState(
+    showedExplanationState,
+  );
 
   console.log(result.NextQuestion);
 

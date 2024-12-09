@@ -1,60 +1,45 @@
-import React, { useState, useEffect, useRef } from 'react';
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  ScrollView,
-  TextInput,
-} from 'react-native';
-import Slider from '@react-native-community/slider';
-import SelectPopup from '../../Popup/StartSelectPopup';
-import { Draw, ShowImage, Write } from '../svgs/QuizSvg';
-import { questionList, Question } from '../Data/questionList';
+import React, {useState, useEffect, useRef} from 'react';
+import {Text, View, SafeAreaView, StyleSheet} from 'react-native';
 
-import { useRecoilState } from 'recoil';
+import {useRecoilState} from 'recoil';
 import {
-  checkedQuestionState,
   currentQuestionNoState,
   currentQuestionState,
   playingState,
   readOnlyState,
-  resultState,
   selectedQuestionState,
-  showedExplanationState,
-  showedResultState,
-  showListState,
   showTagState,
-  timeState,
-} from '../../../Atoms/Quiz/QuizAtom';
+} from '../../../atoms/quiz/QuizAtom';
 
 /* Tools */
-import { Tag } from '../../Quiz/Section/Tools/Tag';
-import { ShowingImage } from '../../Quiz/Section/Tools/ShowingImage';
+import {ShowingImage} from './components/ShowingImage';
 
 /* Components */
-import MultipleChoice from '../../Quiz/Section/Components/Quiz/MultipleChoice';
-import DrawingBoard from '../../Quiz/Section/Components/Quiz/DrawingBoard';
-import WritingBoard from '../../Quiz/Section/Components/Quiz/WritingBoard';
-import ImageContainer from '../../Quiz/Section/Components/Quiz/ImageContainer';
+import {questionList} from '@quiz/data/QuestionList';
+import SelectPopup from '@main/components/popups/StartSelectPopup';
+import {Tag} from './components/Tag';
 import {
   AvailableBoard,
   InsertTagList,
-  PauseArt,
   QuestionStyling,
   SelectQuestion,
-  ShowAlert,
-} from '../../Quiz/Section/Tools/QuizFunction';
+} from './QuizFunction';
+import ImageContainer from './components/ImageContainer';
+import MultipleChoice from './components/MultipleChoice';
+import DrawingBoard from './components/DrawingBoard';
+import WritingBoard from './components/WritingBoard';
 
 const Quiz = () => {
   const [readOnly] = useRecoilState(readOnlyState);
   const [, setIsPlaying] = useRecoilState(playingState);
-  const [currentQuestionNo, setCurrentQuestionNo] = useRecoilState(currentQuestionNoState);
-  const [currentQuestion, setCurrentQuestion] = useRecoilState(currentQuestionState);
-  const [reqSelQ, requestingSelectingQuestion] = useRecoilState(selectedQuestionState);
+  const [currentQuestionNo, setCurrentQuestionNo] = useRecoilState(
+    currentQuestionNoState,
+  );
+  const [currentQuestion, setCurrentQuestion] =
+    useRecoilState(currentQuestionState);
+  const [reqSelQ, requestingSelectingQuestion] = useRecoilState(
+    selectedQuestionState,
+  );
   const [requestedShowTag, requestingShowTag] = useRecoilState(showTagState);
 
   const [tagList, setTagList] = useState<JSX.Element[]>([]);
@@ -123,7 +108,7 @@ const Quiz = () => {
           tagList={tagList}
         />
       </View>
-      {!readOnly && AvailableBoard({ setSubscreen, subscreen })}
+      {!readOnly && AvailableBoard({setSubscreen, subscreen})}
       <View style={styles.QuestionContainer}>
         <Text style={styles.examNum}>{currentQuestion.questionNo}</Text>
         <Text style={styles.question}>
@@ -138,9 +123,7 @@ const Quiz = () => {
       {(currentQuestion.Image !== 'none' || currentQuestion.Description) && (
         <ShowingImage setSubscreen={setSubscreen} subscreen={subscreen} />
       )}
-      {subscreen === 'drawingBoard' && (
-        <DrawingBoard />
-      )}
+      {subscreen === 'drawingBoard' && <DrawingBoard />}
       {subscreen === 'writingBoard' && <WritingBoard />}
       {subscreen === 'image' && (
         <ImageContainer

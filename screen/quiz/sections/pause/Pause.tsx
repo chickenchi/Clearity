@@ -1,11 +1,11 @@
 import React from 'react';
-import { Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import {Text, View, SafeAreaView, StyleSheet} from 'react-native';
 
-interface Paused {
+interface Pause {
   time: string;
 }
 
-export default function Paused({ time }: Paused) {
+export default function Pause({time}: Pause) {
   return (
     <SafeAreaView style={styles.Header}>
       <View style={styles.t1view}>

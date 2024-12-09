@@ -1,9 +1,7 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
-import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native'
-
-import Logo from './Logo/Logo';
+import {Image, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 export type RootStackParam = {
   home: undefined;
@@ -11,12 +9,12 @@ export type RootStackParam = {
 
 const MainHeader = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParam>>();
-  
+
   return (
     <SafeAreaView style={styles.titleView}>
-      <TouchableOpacity onPress={() => navigation.navigate("home")}>
+      <TouchableOpacity onPress={() => navigation.navigate('home')}>
         <Image
-          source={require('../../assets/images/Logo/Logo.png')}
+          //source={require('@assets/images/logo/Logo.png')}
           style={styles.logo}
         />
       </TouchableOpacity>

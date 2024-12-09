@@ -1,8 +1,8 @@
 // QuizPageFunctions.ts
-import { Dispatch, SetStateAction } from 'react';
-import { ResultType } from '../Quiz/QuizPage';
-import { FormatTime } from '../Tools/FormatTime';
-import { storeData, getData } from './Tools/DataSetting';
+import {Dispatch, SetStateAction} from 'react';
+import {ResultType} from '../quiz/QuizPage';
+import {formatTime} from '@utils/FormatTime';
+import {storeData, getData} from '@utils/DataSetting';
 
 interface NextQuestionProps {
   setIsPlaying: Dispatch<SetStateAction<boolean>>;
@@ -43,12 +43,12 @@ export const ToggleResult = async (
     setIsPlaying,
     time,
     requestingSelectingQuestion,
-  }: ToggleResultProps
+  }: ToggleResultProps,
 ) => {
   const Correct = isCorr ? '정답입니다!' : '오답입니다.';
   storeData(isCorr ? 'correct' : 'wrong', (await getData('correct')) + 1);
 
-  const solvingTime = FormatTime(time);
+  const solvingTime = formatTime(time);
 
   changeResult({
     Correct,
@@ -56,10 +56,11 @@ export const ToggleResult = async (
     correct,
     solvingTime,
     type,
-    NextQuestion: () => NextQuestion({ 
+    NextQuestion: () =>
+      NextQuestion({
         setIsPlaying,
         showingResult,
-        requestingSelectingQuestion
+        requestingSelectingQuestion,
       }),
   });
 

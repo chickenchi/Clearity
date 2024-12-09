@@ -58,7 +58,7 @@ export const questionList: Question[] = [
 일이 잘못된 후에는 다시 되돌릴 수 없다는 의미를 가지고 있습니다.
 사진을 보시면 소는 이미 나와 있는데 외양간을 고치려는 모습을 볼 수 있습니다. 그래서 정답은 4번이 되겠습니다.`,
     Hint: '사진에 있는 동물이 무엇인지 보면 쉽게 맞힐 수 있습니다.',
-    Image: require('../../../assets/images/cowboy.jpg'),
+    Image: require('@assets/images/cowboy.jpg'),
     tag: ['일반', '속담'],
   },
   {

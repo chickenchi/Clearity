@@ -1,14 +1,7 @@
-import { DrawingCanvas } from '../../../../Quiz/Tools/DrawingCanvas';
-import {
-  ScrollView,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-Dimensions,
-} from 'react-native';
-import { Eraser, Write } from '../../../../Quiz/svgs/QuizSvg';
-import { useState } from 'react';
+import {View, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
+import {Eraser, Write} from '@assets/svgs/QuizSvg';
+import {useState} from 'react';
+import {DrawingCanvas} from './DrawingCanvas';
 
 const DrawingBoard = () => {
   const [toolType, setToolType] = useState<string>('pencil');

@@ -1,5 +1,5 @@
-import { ToggleTag } from "../../../Quiz/svgs/QuizSvg";
-import { ScrollView, TouchableOpacity, View, StyleSheet } from "react-native";
+import {ToggleTag} from '@assets/svgs/QuizSvg';
+import {ScrollView, TouchableOpacity, View, StyleSheet} from 'react-native';
 
 interface Tag {
   setShowedTag: (value: boolean) => void;
@@ -7,18 +7,18 @@ interface Tag {
   tagList: JSX.Element[];
 }
 
-export const Tag: React.FC<Tag> = ({ setShowedTag, showedTag, tagList }) => {
+export const Tag: React.FC<Tag> = ({setShowedTag, showedTag, tagList}) => {
   return (
-  <View style={styles.Tag}>
-    <TouchableOpacity onPress={() => setShowedTag(!showedTag)}>
-      <ToggleTag />
-    </TouchableOpacity>
-    <View style={styles.tagContainer}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={styles.tagContentContainer}>{showedTag && tagList}</View>
-      </ScrollView>
+    <View style={styles.Tag}>
+      <TouchableOpacity onPress={() => setShowedTag(!showedTag)}>
+        <ToggleTag />
+      </TouchableOpacity>
+      <View style={styles.tagContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.tagContentContainer}>{showedTag && tagList}</View>
+        </ScrollView>
+      </View>
     </View>
-  </View>
   );
 };
 

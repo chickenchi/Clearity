@@ -6,16 +6,17 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {
-  ShowImage,
-} from '../../svgs/QuizSvg';
+import {ShowImage} from '@assets/svgs/QuizSvg';
 
 interface ShowingImage {
   setSubscreen: (value: string) => void;
   subscreen: string;
 }
 
-export const ShowingImage: React.FC<ShowingImage> = ({ setSubscreen, subscreen }) => {
+export const ShowingImage: React.FC<ShowingImage> = ({
+  setSubscreen,
+  subscreen,
+}) => {
   return (
     <View style={styles.showImage}>
       <TouchableOpacity

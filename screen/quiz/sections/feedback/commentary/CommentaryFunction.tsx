@@ -1,15 +1,9 @@
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import { Question } from '../../../Quiz/Data/questionList';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Question} from '../../../Data/questionList';
 
 export const ExposeStyling = (
   question: string,
-  { setExp, currentQuestion }: ChangeExp
+  {setExp, currentQuestion}: ChangeExp,
 ) => {
   if (!question) return [];
 
@@ -40,17 +34,17 @@ export const ExposeStyling = (
               <TouchableOpacity
                 style={styles.EXBtn}
                 onPress={() =>
-                  ChangeExp(capturedCnt, { setExp, currentQuestion })
+                  ChangeExp(capturedCnt, {setExp, currentQuestion})
                 }>
-                <Text style={[styles.expose, { color: 'red' }]}>{part}</Text>
+                <Text style={[styles.expose, {color: 'red'}]}>{part}</Text>
               </TouchableOpacity>
-            </View>
+            </View>,
           );
         } else {
           result.push(
             <View style={styles.TextContainer} key={`text-${i}`}>
               <Text style={styles.expose}>{part}</Text>
-            </View>
+            </View>,
           );
         }
     }
@@ -64,7 +58,7 @@ interface ChangeExp {
   currentQuestion: Question;
 }
 
-const ChangeExp = (index: number, { setExp, currentQuestion }: ChangeExp) => {
+const ChangeExp = (index: number, {setExp, currentQuestion}: ChangeExp) => {
   console.log(index);
   setExp(currentQuestion.Exp ? currentQuestion.Exp[index] : '');
 };

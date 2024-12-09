@@ -6,11 +6,11 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {List} from '../svgs/HeaderSvg';
-import {Setting, Shopping, Help} from '../svgs/ListSvg';
-import SelectPopup from '../../Popup/StartSelectPopup';
+import {List} from '@assets/svgs/HeaderSvg';
+import {Setting, Shopping, Help} from '@assets/svgs/ListSvg';
+import SelectPopup from '@main/components/popups/StartSelectPopup';
 import {useRecoilState} from 'recoil';
-import {showListState} from '../../../Atoms/Quiz/QuizAtom';
+import {showListState} from '../../atoms/quiz/QuizAtom';
 
 /* 위치 잘못 잡힘 */
 

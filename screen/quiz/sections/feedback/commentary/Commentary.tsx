@@ -1,19 +1,17 @@
-import { useState } from 'react';
+import {useState} from 'react';
+import {Text, View, SafeAreaView, StyleSheet} from 'react-native';
+import {useRecoilState} from 'recoil';
 import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
-import { ExposeStyling } from './Tools/ExplanationFunction'
-import { currentQuestionState, resultState } from '../../../Atoms/Quiz/QuizAtom';
-import { useRecoilState } from 'recoil';
+  currentQuestionState,
+  resultState,
+} from '../../../../atoms/quiz/QuizAtom';
+import {ExposeStyling} from './CommentaryFunction';
 
-export default function Explanation() {
+export default function Commentary() {
   const [result] = useRecoilState(resultState);
   const [currentQuestion] = useRecoilState(currentQuestionState);
 
-  const [Exp, setExp] = useState<string>('');
+  const [Exp] = useState<string>('');
 
   return (
     <SafeAreaView style={styles.Explanation}>

@@ -1,12 +1,6 @@
-import {resultState} from '../../../Atoms/Quiz/QuizAtom';
+import {resultState} from '../../../../atoms/quiz/QuizAtom';
 import {useRecoilState} from 'recoil';
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {Text, View, SafeAreaView, StyleSheet} from 'react-native';
 
 export default function Feedback() {
   const [result] = useRecoilState(resultState);

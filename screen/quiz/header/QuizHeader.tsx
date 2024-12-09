@@ -6,20 +6,21 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { Svg, Path, Rect } from 'react-native-svg';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
-import { List, Logo, Pause, Play } from '../svgs/HeaderSvg';
+import {Svg, Path, Rect} from 'react-native-svg';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
+import {List, Logo, Pause, Play} from '@assets/svgs/HeaderSvg';
 
-import { useRecoilState } from 'recoil';
+import {useRecoilState} from 'recoil';
+
+import {formatTime} from 'utils/FormatTime';
 import {
   playingState,
   showedResultState,
   showListState,
   showTagState,
   timeState,
-} from '../../../Atoms/Quiz/QuizAtom';
-import { FormatTime } from '../../Tools/FormatTime';
+} from '../../atoms/quiz/QuizAtom';
 
 export type RootStackParam = {
   home: undefined;
@@ -44,7 +45,7 @@ const QuizHeader = () => {
 
       {!showedResult ? (
         <View style={styles.TimeContainer}>
-          <Text style={styles.Time}>{FormatTime(time)}</Text>
+          <Text style={styles.Time}>{formatTime(time)}</Text>
           {!isPlaying ? (
             <TouchableOpacity
               onPress={() => {

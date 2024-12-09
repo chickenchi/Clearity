@@ -1,30 +1,29 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useCallback, useState } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
-import Tab from './Tab/Tab';
-import MainHeader from './MainHeader';
-import { ProfilePic, Setting } from './SVG/ProfileSVG';
-import { getData, removeData, storeData } from '../Quiz/Tools/DataSetting';
-import Notification from '../Items/Notification'
-import { useAlert } from '../../tools/AlertProvider';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useCallback, useState} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import {getData} from '../../../utils/DataSetting';
+import {useAlert} from '../../../components/common-popups/alert/AlertProvider';
+import MainHeader from '../../header/MainHeader';
+import {Setting} from '@assets/svgs/ListSvg';
+import Tab from '../../footer/Tab';
+import Svg from 'react-native-svg';
 
-interface ProfilePageProps {
-  navigation: NativeStackNavigationProp<any, 'default'>;
-}
-
-let no = 0;
-
-const Profile = ({ navigation }: ProfilePageProps) => {
+const Profile = () => {
   const [solved, updateSolve] = useState<any>(null);
   const [corrected, updateCorrect] = useState<any>(null);
   const [wronged, updateWrong] = useState<any>(null);
 
   useFocusEffect(
-      useCallback(() => {
-        const fetchData = async () => {
-        const correctData = await getData("correct");
-        const wrongData = await getData("wrong");
+    useCallback(() => {
+      const fetchData = async () => {
+        const correctData = await getData('correct');
+        const wrongData = await getData('wrong');
 
         updateSolve(correctData + wrongData);
         updateCorrect(correctData);
@@ -32,10 +31,10 @@ const Profile = ({ navigation }: ProfilePageProps) => {
       };
 
       fetchData();
-    }, [])
+    }, []),
   );
 
-  const { showAlert } = useAlert();
+  const {showAlert} = useAlert();
 
   return (
     <SafeAreaView style={styles.BG}>
@@ -44,9 +43,13 @@ const Profile = ({ navigation }: ProfilePageProps) => {
       </View>
 
       <View style={styles.profile}>
-        <View style={styles.profilePic}>
-          <ProfilePic />
-        </View>
+        <Svg
+          style={styles.profilePic}
+          width="130"
+          height="130"
+          viewBox="0 0 46 46"
+          fill="none"
+        />
         <View style={styles.info}>
           <View style={styles.call}>
             <Text style={styles.callText}>새싹 📗</Text>
@@ -54,9 +57,11 @@ const Profile = ({ navigation }: ProfilePageProps) => {
           <Text style={styles.id}>guest0001</Text>
           <Text style={styles.name}>정보 없음</Text>
           <Text style={styles.introduce}>미가입된 계정입니다.</Text>
-          <TouchableOpacity style={styles.setting} onPress={() => {
+          <TouchableOpacity
+            style={styles.setting}
+            onPress={() => {
               showAlert({
-                title: "평명",
+                title: '평명',
                 description: `추후 추가할 예정입니다.`,
                 type: 'okay',
                 onConfirm: () => {},

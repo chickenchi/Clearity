@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import {
   Text,
   View,
@@ -8,11 +8,18 @@ import {
   TextInput,
 } from 'react-native';
 
-import { Clue, ExitAnswer, Correct, Wrong } from '../svgs/QuizSvg';
-import { useRecoilState } from 'recoil';
-import { currentQuestionState, playingState, resultState, selectedQuestionState, showedResultState, timeState } from '../../../Atoms/Quiz/QuizAtom';
-import { useAlert } from '../../../tools/AlertProvider';
-import { ToggleResult } from '../../Quiz/QuizPageFunction';
+import {Clue, ExitAnswer, Correct, Wrong} from '@assets/svgs/QuizSvg';
+import {useRecoilState} from 'recoil';
+import {
+  currentQuestionState,
+  playingState,
+  resultState,
+  selectedQuestionState,
+  showedResultState,
+  timeState,
+} from '@atoms/quiz/QuizAtom';
+import {ToggleResult} from '@quiz/QuizPageFunction';
+import {useAlert} from '@components/common-popups/alert/AlertProvider';
 
 const QuizFooter = () => {
   const [time, setTime] = useRecoilState(timeState);
@@ -22,7 +29,7 @@ const QuizFooter = () => {
   const [currentHintCnt, changeHintCnt] = useState<number>(4);
   const [showedAnswer, answerShowing] = useState<boolean>(false);
 
-  const { showAlert } = useAlert();
+  const {showAlert} = useAlert();
 
   const [currentQuestion] = useRecoilState(currentQuestionState);
   const [, requestingSelectingQuestion] = useRecoilState(selectedQuestionState);
@@ -56,7 +63,7 @@ const QuizFooter = () => {
 
           {currentQuestion.type === '다지선다' && (
             <View style={styles.SelectAnswer}>
-              {[1, 2, 3, 4, 5].map((number) => (
+              {[1, 2, 3, 4, 5].map(number => (
                 <View style={styles.ansItem} key={number}>
                   <TouchableOpacity onPress={() => numberSelecting(number)}>
                     <Text
@@ -79,9 +86,7 @@ const QuizFooter = () => {
                 <TextInput
                   style={styles.input}
                   value={inputText}
-                  onChangeText={(text) =>
-                    setInputText(text)
-                  }
+                  onChangeText={text => setInputText(text)}
                   placeholder="정답을 입력해 주세요"
                 />
               </View>
@@ -113,14 +118,14 @@ const QuizFooter = () => {
               onPress={() => {
                 if (!selectedNumber && !inputText && !selectOX) {
                   showAlert({
-                    title: "평명",
+                    title: '평명',
                     description: `정답을 입력하거나\n고르지 않으셨습니다.`,
                     type: 'okay',
                     onConfirm: () => {},
                   });
                 } else {
                   showAlert({
-                    title: "평명",
+                    title: '평명',
                     description: `정답을 제출하시겠습니까?`,
                     type: 'select',
                     onConfirm: () => {
@@ -166,18 +171,17 @@ const QuizFooter = () => {
           <TouchableOpacity
             style={styles.hintBtn}
             onPress={() => {
-              if(currentHintCnt) {
+              if (currentHintCnt) {
                 changeHintCnt(currentHintCnt - 1);
                 showAlert({
-                  title: "평명",
+                  title: '평명',
                   description: `${currentQuestion.Hint}`,
                   type: 'okay',
                   onConfirm: () => {},
                 });
-
               } else {
                 showAlert({
-                  title: "평명",
+                  title: '평명',
                   description: `오늘 사용 가능한 힌트를\n 모두 사용하셨습니다.`,
                   type: 'okay',
                   onConfirm: () => {},
@@ -189,11 +193,11 @@ const QuizFooter = () => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            if(!showedAnswer) {
+            if (!showedAnswer) {
               answerShowing(!showedAnswer);
             } else {
               showAlert({
-                title: "평명",
+                title: '평명',
                 description: `포기하지 마세요!`,
                 type: 'okay',
                 onConfirm: () => {},
@@ -207,9 +211,9 @@ const QuizFooter = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btn}
-          onPress={() =>{
+          onPress={() => {
             showAlert({
-              title: "평명",
+              title: '평명',
               description: `문제를 넘기시겠습니까?`,
               type: 'select',
               onConfirm: () => {
@@ -217,8 +221,7 @@ const QuizFooter = () => {
                 requestingSelectingQuestion(true);
               },
             });
-            }
-          }>
+          }}>
           <Text style={styles.btnDesc}>넘기기</Text>
         </TouchableOpacity>
       </View>

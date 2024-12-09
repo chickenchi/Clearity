@@ -1,17 +1,7 @@
-import { MutableRefObject } from 'react';
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  ScrollView,
-  TextInput,
-} from 'react-native';
-import { Question } from '../../../Quiz/Data/questionList';
-import { Draw, Write } from '../../../Quiz/svgs/QuizSvg';
+import {MutableRefObject} from 'react';
+import {Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Question} from '@quiz/data/QuestionList';
+import {Draw, Write} from '@assets/svgs/QuizSvg';
 
 interface AvailableBoard {
   setSubscreen: (value: string) => void;
@@ -21,23 +11,23 @@ interface AvailableBoard {
 export const AvailableBoard = ({setSubscreen, subscreen}: AvailableBoard) => {
   return (
     <>
-          <TouchableOpacity
-            style={styles.write}
-            onPress={() =>
-              setSubscreen(subscreen === 'writingBoard' ? '' : 'writingBoard')
-            }>
-            <Write />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.draw}
-            onPress={() =>
-              setSubscreen(subscreen === 'drawingBoard' ? '' : 'drawingBoard')
-            }>
-            <Draw />
-          </TouchableOpacity>
-        </>
-  )
-}
+      <TouchableOpacity
+        style={styles.write}
+        onPress={() =>
+          setSubscreen(subscreen === 'writingBoard' ? '' : 'writingBoard')
+        }>
+        <Write />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.draw}
+        onPress={() =>
+          setSubscreen(subscreen === 'drawingBoard' ? '' : 'drawingBoard')
+        }>
+        <Draw />
+      </TouchableOpacity>
+    </>
+  );
+};
 
 interface SelectQuestion {
   readOnly: boolean;
@@ -82,7 +72,7 @@ export const SelectQuestion = ({
   const questionCnt = questionList.length;
   let SelQN: string = '01';
 
-  PauseArt({ setSubscreen });
+  PauseArt({setSubscreen});
 
   do {
     SelQN = (Math.floor(Math.random() * questionCnt) + 1).toString();
@@ -107,7 +97,7 @@ interface InsertTagList {
 
 export const InsertTagList = (
   tagArray: string[],
-  { setTagList, setRequest, no, setType }: InsertTagList
+  {setTagList, setRequest, no, setType}: InsertTagList,
 ) => {
   const stackTag: JSX.Element[] = tagArray.map((tag, i) => (
     <TouchableOpacity
@@ -136,7 +126,7 @@ interface ShowAlert {
 export const ShowAlert = (
   script: string,
   type: string,
-  { setRequest, no, setType }: ShowAlert
+  {setRequest, no, setType}: ShowAlert,
 ) => {
   setRequest(script + '; ' + no.current);
   setType(type);
@@ -148,7 +138,7 @@ interface PauseArt {
   setSubscreen: (value: string) => void;
 }
 
-export const PauseArt = ({ setSubscreen }: PauseArt) => {
+export const PauseArt = ({setSubscreen}: PauseArt) => {
   setSubscreen('none');
 };
 
@@ -181,13 +171,13 @@ export const QuestionStyling = (question: string) => {
           result.push(
             <Text key={result.length} style={styles.bolding}>
               {part}
-            </Text>
+            </Text>,
           );
         } else if (isItalic) {
           result.push(
             <Text key={result.length} style={styles.italic}>
               {part}
-            </Text>
+            </Text>,
           );
         } else {
           result.push(<Text key={result.length}>{part}</Text>);
@@ -199,7 +189,6 @@ export const QuestionStyling = (question: string) => {
 };
 
 export const styles = StyleSheet.create({
-
   tag: {
     backgroundColor: 'none',
     padding: 4,

@@ -1,45 +1,45 @@
 // atoms.ts
-import { atom } from "recoil";
-import { Question } from "../../screen/Quiz/Data/questionList";
-import { ResultType } from '../../screen/Quiz/QuizPage';
+import {atom} from 'recoil';
+import {Question} from '../../quiz/Data/questionList';
+import {ResultType} from '../../quiz/QuizPage';
 
 export const playingState = atom({
-  key: "playingState",
+  key: 'playingState',
   default: true,
 });
 
 export const showedResultState = atom({
-  key: "showedResultState",
+  key: 'showedResultState',
   default: false,
 });
 
 export const timeState = atom({
-  key: "timeState",
+  key: 'timeState',
   default: 0,
 });
 
 export const showListState = atom({
-  key: "showListState",
+  key: 'showListState',
   default: false,
 });
 
 export const showTagState = atom({
-  key: "showTagState",
+  key: 'showTagState',
   default: false,
 });
 
 export const resultState = atom<Partial<ResultType>>({
-  key: "resultState",
+  key: 'resultState',
   default: {},
 });
 
 export const checkedQuestionState = atom({
-  key: "checkedQuestionState",
+  key: 'checkedQuestionState',
   default: false,
 });
 
 export const showedExplanationState = atom({
-  key: "showedExplanationState",
+  key: 'showedExplanationState',
   default: false,
 });
 
@@ -69,22 +69,21 @@ const initialQuestion: Question = {
 };
 
 export const currentQuestionState = atom<Question>({
-  key: "currentQuestionState",
+  key: 'currentQuestionState',
   default: initialQuestion,
 });
 
 export const currentQuestionNoState = atom<string>({
-  key: "currentQuestionNoState",
+  key: 'currentQuestionNoState',
   default: '0',
 });
 
 export const selectedQuestionState = atom({
-  key: "selectedQuestionState",
+  key: 'selectedQuestionState',
   default: true,
 });
 
 export const readOnlyState = atom({
-  key: "readOnlyState",
+  key: 'readOnlyState',
   default: false,
 });
-

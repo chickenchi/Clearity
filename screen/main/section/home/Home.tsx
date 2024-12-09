@@ -1,5 +1,5 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,47 +8,50 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
-import Tab from './Tab/Tab';
-import StartPopup from '../Popup/StartPopup';
-import StartSelectPopup from '../Popup/StartSelectPopup';
+import StartPopup from '../../components/popups/StartPopup';
+import Tab from '../../footer/Tab';
 
 interface HomePageProps {
   navigation: NativeStackNavigationProp<any, 'default'>;
 }
 
 const Home = ({navigation}: HomePageProps) => {
-
   const Test = () => {
-    navigation.navigate("login")
-  }
+    navigation.navigate('login');
+  };
 
   const QuizPage = () => {
-    navigation.navigate("quiz")
-  }
+    navigation.navigate('quiz');
+  };
 
   return (
     <SafeAreaView style={styles.BG}>
       <StartPopup />
-      {/* <StartSelectPopup /> */}
 
       <View style={styles.titleView}>
-        <Image source={require('../../assets/images/Logo/Logo.png')} style={styles.logo} />
+        <Image
+          //source={require('@assets/images/logo/Logo.png')}
+          style={styles.logo}
+        />
       </View>
 
-      <TouchableOpacity style={[styles.button, styles.startBtn]} onPress={QuizPage}>
+      <TouchableOpacity
+        style={[styles.button, styles.startBtn]}
+        onPress={QuizPage}>
         <Text style={[styles.buttonText, styles.startBtnText]}>시작하기</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.button, styles.battleBtn]} onPress={Test}>
+      <TouchableOpacity
+        style={[styles.button, styles.battleBtn]}
+        onPress={Test}>
         <Text style={[styles.buttonText, styles.battleBtnText]}>계정 변경</Text>
       </TouchableOpacity>
-      
+
       <View style={styles.tab}>
         <Tab colDir="home" />
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   BG: {
@@ -72,19 +75,19 @@ const styles = StyleSheet.create({
   button: {
     width: '90%',
     height: '8%',
-    
+
     borderColor: 'black',
     borderWidth: 2,
     borderRadius: 12,
 
     marginBottom: 20,
-    
+
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
+
   startBtn: {
-    borderColor: '#E04E92'
+    borderColor: '#E04E92',
   },
   startBtnText: {
     color: '#E04E92',
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
   },
 
   battleBtn: {
-    borderColor: '#C1C1C1'
+    borderColor: '#C1C1C1',
   },
   battleBtnText: {
     color: '#C1C1C1',
@@ -104,12 +107,12 @@ const styles = StyleSheet.create({
   buttonText: {
     fontFamily: 'NANUMSQUAREROUNDB',
     fontWeight: '600',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   tab: {
     position: 'absolute',
-    bottom: 0
-  }
+    bottom: 0,
+  },
 });
 
 export default Home;

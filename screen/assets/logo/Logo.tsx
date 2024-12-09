@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Image,
-  View,
-  Text,
-  TouchableHighlight,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, Image, View, Text} from 'react-native';
 
 export type RootStackParam = {
   home: undefined;
@@ -20,7 +13,7 @@ const Logo = () => {
     <SafeAreaView>
       <View style={styles.titleView}>
         <Image
-          source={require('../../../assets/images/Logo/Logo.png')}
+          //source={require('@assets/images/logo/Logo.png')}
           style={styles.logo}
         />
         <Text style={styles.title}>평명</Text>

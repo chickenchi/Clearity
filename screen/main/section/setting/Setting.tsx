@@ -1,35 +1,24 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 
-import Tab from './Tab/Tab';
+import Tab from '../../footer/Tab';
+import UnderConstruction from '../../../components/somepage/UnderConstruction';
+import MainHeader from '../../header/MainHeader';
 
-import MainHeader from './MainHeader';
-import Under_construction from '../Items/under_construction';
-
-interface SettingPageProps {
-  navigation: NativeStackNavigationProp<any, 'default'>;
-}
-
-const Setting = ({navigation}: SettingPageProps) => {
-
+const Setting = () => {
   return (
     <SafeAreaView style={styles.BG}>
       <View style={styles.MainHeader}>
         <MainHeader />
       </View>
-      
-      <Under_construction />
-      
+
+      <UnderConstruction />
+
       <View style={styles.tab}>
         <Tab colDir="setting" />
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   BG: {
@@ -44,8 +33,8 @@ const styles = StyleSheet.create({
   },
   tab: {
     position: 'absolute',
-    bottom: 0
-  }
+    bottom: 0,
+  },
 });
 
 export default Setting;

@@ -1,48 +1,48 @@
-import { Question } from "../../../../Quiz/Data/questionList";
-import { ScrollView, View, Text, StyleSheet } from "react-native";
+import {Question} from '../../../../quiz/Data/questionList';
+import {ScrollView, View, Text, StyleSheet} from 'react-native';
 
 interface MultipleChoice {
   currentQuestion: Question;
   readOnly: boolean;
 }
 
-const MultipleChoice: React.FC<MultipleChoice> = ({ currentQuestion, readOnly }) => {
+const MultipleChoice: React.FC<MultipleChoice> = ({
+  currentQuestion,
+  readOnly,
+}) => {
   return (
     <View style={styles.SelContainer}>
-          <ScrollView nestedScrollEnabled>
-            <View style={styles.SelectContainer}>
-              {['item1', 'item2', 'item3', 'item4', 'item5'].map(
-                (item, index) =>
-                  currentQuestion[item as keyof Question] && (
-                    <View key={index} style={[styles.item, readOnly && { width: '100%'}]}>
-                      <Text
-                        style={[
-                          styles.itemDesc,
-                          readOnly &&
-                            currentQuestion.Corr === index + 1 && {
-                              color: '#E04E92',
-                            },
-                        ]}>
-                        {`①②③④⑤`[index]}{' '}
-                        {currentQuestion[item as keyof Question]}
-                      </Text>
-                      {readOnly && (
-                        <Text style={styles.reason}>
-                          {
-                            currentQuestion[
-                              `reason${index + 1}` as keyof Question
-                            ]
-                          }
-                        </Text>
-                      )}
-                    </View>
-                  )
-              )}
-            </View>
-          </ScrollView>
+      <ScrollView nestedScrollEnabled>
+        <View style={styles.SelectContainer}>
+          {['item1', 'item2', 'item3', 'item4', 'item5'].map(
+            (item, index) =>
+              currentQuestion[item as keyof Question] && (
+                <View
+                  key={index}
+                  style={[styles.item, readOnly && {width: '100%'}]}>
+                  <Text
+                    style={[
+                      styles.itemDesc,
+                      readOnly &&
+                        currentQuestion.Corr === index + 1 && {
+                          color: '#E04E92',
+                        },
+                    ]}>
+                    {`①②③④⑤`[index]} {currentQuestion[item as keyof Question]}
+                  </Text>
+                  {readOnly && (
+                    <Text style={styles.reason}>
+                      {currentQuestion[`reason${index + 1}` as keyof Question]}
+                    </Text>
+                  )}
+                </View>
+              ),
+          )}
         </View>
-  )
-}
+      </ScrollView>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   SelContainer: {
@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: 'wrap',
   },
-})
+});
 
 export default MultipleChoice;
